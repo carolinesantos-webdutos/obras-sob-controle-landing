@@ -23,12 +23,12 @@ export const DifferentialsSection = () => {
   return (
     <section className="w-full py-20 bg-primary/5">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12 animate-fade-in">
           Diferenciais que Colocam sua Obra em Outro Nível
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {differentials.map((differential, index) => (
-            <Card key={index} className="text-center border-border bg-background hover:shadow-lg transition-shadow">
+            <Card key={index} className={`text-center border-border bg-background hover:shadow-lg transition-shadow hover-lift animate-scale-in`} style={{animationDelay: `${index * 0.2}s`}}>
               <CardHeader>
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <differential.icon className="w-8 h-8 text-primary" />

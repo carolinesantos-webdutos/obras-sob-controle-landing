@@ -43,12 +43,12 @@ export const FeaturesSection = () => {
   return (
     <section className="w-full py-20 bg-background">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-4 animate-fade-in">
           Principais Recursos para uma Gestão de Obras Eficiente
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {features.map((feature, index) => (
-            <Card key={index} className="border-border hover:shadow-lg transition-shadow">
+            <Card key={index} className={`border-border hover:shadow-lg transition-shadow hover-lift animate-scale-in`} style={{animationDelay: `${index * 0.1}s`}}>
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-primary" />

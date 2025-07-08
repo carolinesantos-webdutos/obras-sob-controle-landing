@@ -29,15 +29,15 @@ export const TestimonialsSection = () => {
   return (
     <section className="w-full py-20 bg-primary/5">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-4 animate-fade-in">
           O que Nossos Clientes Dizem
         </h2>
-        <p className="text-xl text-muted-foreground text-center max-w-3xl mx-auto mb-12">
+        <p className="text-xl text-muted-foreground text-center max-w-3xl mx-auto mb-12 animate-slide-up">
           Depoimentos de profissionais que transformaram suas obras com o RDOWEB
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="border-border bg-background hover:shadow-lg transition-shadow">
+            <Card key={index} className={`border-border bg-background hover:shadow-lg transition-shadow hover-lift animate-fade-in`} style={{animationDelay: `${index * 0.1}s`}}>
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <Quote className="w-8 h-8 text-primary mr-3" />
