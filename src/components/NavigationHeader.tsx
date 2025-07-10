@@ -9,9 +9,11 @@ export const NavigationHeader = () => {
 
   const navItems = [
     { name: "Início", path: "/" },
+    { name: "Obras", path: "/obras" },
     { name: "Serviços", path: "/servicos" },
     { name: "Blog", path: "/blog" },
-    { name: "Artigos Técnicos", path: "/artigos" },
+    { name: "FAQ", path: "/faq" },
+    { name: "Downloads", path: "/downloads" },
     { name: "Contato", path: "/#contact-form" }
   ];
 
