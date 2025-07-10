@@ -1,132 +1,124 @@
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export const HeroSection = () => {
   const [showVideo, setShowVideo] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   
   const scrollToForm = () => {
     const formSection = document.getElementById('contact-form');
     formSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const backgroundImages = [
+    "/lovable-uploads/90f2bed0-b282-4428-b831-f87f94ea765a.png",
+    "/lovable-uploads/64275da3-0449-45d3-bc17-658d0c8da5ff.png",
+    "/lovable-uploads/fcd557a1-91e6-482e-9346-e7f7fe68ebfe.png"
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % backgroundImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + backgroundImages.length) % backgroundImages.length);
+  };
+
   return (
-    <section className="w-full relative py-20 overflow-hidden">
-      {/* Background Images */}
+    <section className="w-full relative min-h-screen overflow-hidden">
+      {/* Background Images Carousel */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="/lovable-uploads/2d02a47e-0f65-48b3-aec6-2d85744282b6.png" 
-          alt="Construction Management" 
-          className="absolute top-0 left-0 w-full h-full object-cover opacity-10"
-        />
-        <img 
-          src="/lovable-uploads/233a5650-165d-422f-a197-ed4f16f71656.png" 
-          alt="Construction Equipment" 
-          className="absolute top-1/4 right-0 w-1/3 h-1/2 object-cover opacity-5"
-        />
-        <img 
-          src="/lovable-uploads/f8883bf1-8925-47cc-b956-f2f8f2882353.png" 
-          alt="Digital Construction" 
-          className="absolute bottom-0 left-1/4 w-1/3 h-1/3 object-cover opacity-5"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20"></div>
+        {backgroundImages.map((image, index) => (
+          <img 
+            key={index}
+            src={image}
+            alt={`Construction Background ${index + 1}`}
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ))}
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content Side */}
-          <div className="text-center lg:text-left">
-            <div className="flex items-center justify-center lg:justify-start mb-6">
-              <img 
-                src="/lovable-uploads/2fb80ba8-378d-40fe-9076-bb55c2038b21.png" 
-                alt="RDOWEB Logo" 
-                className="w-16 h-16 mr-4 animate-fade-in"
-              />
-              <img 
-                src="/lovable-uploads/311ce9c6-c398-434f-a0f0-ecdc60266847.png" 
-                alt="RDOWEB Text" 
-                className="h-12 animate-fade-in"
-              />
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 animate-fade-in">
-              <span className="text-gradient">Obras Sob Controle</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl lg:max-w-none mb-8 leading-relaxed animate-slide-up">
-              Transforme apontamentos de campo em indicadores de performance. Crie Relatórios Diários de Obras (RDO) digitais, com validade jurídica, e estabeleça um canal de comunicação seguro entre construtora, gerenciadora e cliente final.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 animate-bounce-in hover-lift"
-                onClick={scrollToForm}
-              >
-                Solicite uma Demonstração
-              </Button>
-              
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="text-lg px-8 py-6 animate-bounce-in hover-lift gap-2"
-                onClick={() => setShowVideo(true)}
-              >
-                <Play className="w-5 h-5" />
-                Assistir Vídeo
-              </Button>
-            </div>
-            
-            {/* Construction Icons */}
-            <div className="flex justify-center lg:justify-start gap-6 mt-8 opacity-60">
-              <img src="/lovable-uploads/f361d869-299d-4489-adb6-db28f6b7b436.png" alt="Icon 1" className="w-8 h-8 animate-fade-in" />
-              <img src="/lovable-uploads/dcb886fe-e11b-488c-a579-f170cdbcc779.png" alt="Icon 2" className="w-8 h-8 animate-fade-in" />
-              <img src="/lovable-uploads/eea99676-ef82-47c2-8653-c28b91be99f3.png" alt="Icon 3" className="w-8 h-8 animate-fade-in" />
-              <img src="/lovable-uploads/216e73cb-674f-4df1-99ea-fa96d5d96032.png" alt="Icon 4" className="w-8 h-8 animate-fade-in" />
-              <img src="/lovable-uploads/689ffef6-7073-4634-930f-cefc03370a6e.png" alt="Icon 5" className="w-8 h-8 animate-fade-in" />
-            </div>
-          </div>
+      {/* Navigation Arrows */}
+      <button 
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 rounded-full p-3 transition-all duration-200"
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
+      
+      <button 
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 rounded-full p-3 transition-all duration-200"
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button>
 
-          {/* Visual Side */}
-          <div className="relative">
-            {/* Mobile App Mockup */}
-            <div className="relative z-10 animate-scale-in">
-              <img 
-                src="/lovable-uploads/64c0e203-757b-45ff-8b19-a3895ca26120.png" 
-                alt="RDOWEB Mobile App" 
-                className="w-full max-w-lg mx-auto drop-shadow-2xl"
-              />
-            </div>
+      {/* Content Centered */}
+      <div className="flex items-center justify-center min-h-screen relative z-10">
+        <div className="text-center text-white px-4 max-w-4xl">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+            OBRAS SOB CONTROLE
+          </h1>
+          <p className="text-xl md:text-2xl mb-12 leading-relaxed animate-slide-up opacity-90">
+            RDO - Relatório Diário de Obra, Aprovação de Medições, Apontamento de Mão de Obra e<br />
+            Equipamentos, e muito mais!
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <Button 
+              size="lg" 
+              className="text-lg px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold animate-bounce-in hover-lift"
+              onClick={scrollToForm}
+            >
+              Solicite Uma Demonstração
+            </Button>
             
-            {/* Background Construction Images */}
-            <div className="absolute inset-0 opacity-20 -z-10">
-              <img 
-                src="/lovable-uploads/9057f27b-9228-4a51-a281-f54f76a7c164.png" 
-                alt="Construction Background" 
-                className="absolute top-0 right-0 w-32 h-32 object-cover rounded-lg animate-fade-in"
-              />
-              <img 
-                src="/lovable-uploads/e0f6918f-b9d3-44d7-adab-54b73611e7e3.png" 
-                alt="Analytics Construction" 
-                className="absolute bottom-0 left-0 w-32 h-32 object-cover rounded-lg animate-fade-in"
-              />
-            </div>
+            <Button 
+              size="lg" 
+              variant="ghost"
+              className="text-lg px-10 py-4 animate-bounce-in hover-lift gap-3 text-white border border-white/30 hover:bg-white/10"
+              onClick={() => setShowVideo(true)}
+            >
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                <Play className="w-5 h-5 text-blue-600 ml-1" fill="currentColor" />
+              </div>
+              ASSISTA<br />COMO FUNCIONA
+            </Button>
           </div>
         </div>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-3">
+        {backgroundImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-200 ${
+              index === currentSlide ? 'bg-white' : 'bg-white/40 hover:bg-white/60'
+            }`}
+          />
+        ))}
       </div>
       
       {/* Video Modal */}
       {showVideo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" onClick={() => setShowVideo(false)}>
           <div className="relative w-full max-w-4xl mx-4">
-            <iframe 
+            <video 
               width="100%" 
               height="500"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-              title="RDOWEB Demonstration"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+              controls
+              autoPlay
               className="rounded-lg"
-            ></iframe>
+            >
+              <source src="/video-rdoweb/INTRODUCAO-RDOWEB" type="video/mp4" />
+              Seu navegador não suporta o elemento de vídeo.
+            </video>
             <button 
               onClick={() => setShowVideo(false)}
               className="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300"
