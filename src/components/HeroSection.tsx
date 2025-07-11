@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const HeroSection = () => {
   const [showVideo, setShowVideo] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { t } = useLanguage();
   
   const scrollToForm = () => {
     const formSection = document.getElementById('contact-form');
@@ -60,21 +62,20 @@ export const HeroSection = () => {
       {/* Content Centered */}
       <div className="flex items-center justify-center min-h-screen relative z-10">
         <div className="text-center text-white px-4 max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-            OBRAS SOB CONTROLE
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in text-white">
+            {t('hero.title')}
           </h1>
-          <p className="text-xl md:text-2xl mb-12 leading-relaxed animate-slide-up opacity-90">
-            RDO - Relatório Diário de Obra, Aprovação de Medições, Apontamento de Mão de Obra e<br />
-            Equipamentos, e muito mais!
+          <p className="text-xl md:text-2xl mb-12 leading-relaxed animate-slide-up opacity-90 text-white">
+            {t('hero.subtitle')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Button 
               size="lg" 
-              className="text-lg px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold animate-bounce-in hover-lift"
+              className="text-lg px-10 py-4 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold animate-bounce-in hover-lift"
               onClick={scrollToForm}
             >
-              Solicite Uma Demonstração
+              {t('hero.demo-button')}
             </Button>
             
             <Button 
@@ -84,9 +85,9 @@ export const HeroSection = () => {
               onClick={() => setShowVideo(true)}
             >
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                <Play className="w-5 h-5 text-blue-600 ml-1" fill="currentColor" />
+                <Play className="w-5 h-5 text-primary ml-1" fill="currentColor" />
               </div>
-              ASSISTA<br />COMO FUNCIONA
+              {t('hero.watch-button')}
             </Button>
           </div>
         </div>
